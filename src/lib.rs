@@ -1,3 +1,4 @@
+use std::fmt;
 use ansistr::{TextBackground, TextColor, TextStyle, TextAlign, slice_str,
     clean_str, pad_str, trucate_str, wrap_str, repaire_str, style_str,
     color_str, background_str};
@@ -194,16 +195,24 @@ impl Text {
         self.text = repaire_str(self.text);
         self
     }
+}
 
-    pub fn to_string(&self) -> String {
-        repaire_str(&self.text)
+impl fmt::Display for Text {
+    fn fmt(&self, fmt: &mut fmt::Formatter) -> fmt::Result {
+        write!(fmt, "{}", repaire_str(&self.text))
+    }
+}
+
+impl From<Text> for String {
+    fn from(item: Text) -> String {
+        item.to_string()
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-
+    
     #[test]
     fn builds_string() {
         let txt = Text::new("Hello");
@@ -214,5 +223,13 @@ mod tests {
         assert_eq!(txt.to_string(), "\x1B[44m\x1B[31mHello\x1B[39m\x1B[49m world....");
         let txt = txt.slice(6, 11).prepend("Hello ").wrap(5);
         assert_eq!(txt.to_string(), "Hello\nworld");
+    }
+
+    #[test]
+    fn converts_to_string() {
+        fn convert<S: Into<String>>(txt: S) -> String {
+            txt.into()
+        }
+        assert_eq!(convert(Text::new("Hello")), "Hello");
     }
 }
