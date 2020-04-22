@@ -185,6 +185,11 @@ impl Text {
         self
     }
 
+    pub fn eol(mut self) -> Self {
+        self.text = format!("{}\n", self.text);
+        self
+    }
+
     pub fn repair(mut self) -> Self {
         self.text = repaire_str(self.text);
         self
