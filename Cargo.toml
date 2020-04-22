@@ -1,0 +1,13 @@
+[package]
+name = "txttyp"
+description = "Formatted string typewriter."
+license = "MIT"
+version = "0.1.0"
+authors = ["Kristijan Sedlak <xpepermint@gmail.com>"]
+edition = "2018"
+documentation = "https://github.com/xpepermint/txttyp"
+homepage = "https://github.com/xpepermint/txttyp"
+repository = "https://github.com/xpepermint/txttyp"
+
+[dependencies]
+ansistr = "0.1.1"
